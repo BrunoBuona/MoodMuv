@@ -1,0 +1,109 @@
+.contenedor-ft{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 110vh;
+    width: 100%;
+}
+.cft-col1{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    background-image: url("https://fotos.perfil.com/2020/01/24/mujeres-en-retiro-907375.jpg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.cftc2-intern{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    height: 375px;
+    width: 425px;
+    background-color: #f2b0ff;
+    border-radius: 15px;
+    box-shadow: 2px 2px 10px #000;
+    text-align: center;
+    gap: 0.5rem;
+}
+.pad-intern{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 25px;
+    width: 100%;
+}
+.pad-intern > h6{
+    color: black;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 0;
+    padding-bottom: 1.1rem;
+    text-transform: uppercase;
+}
+.pad-intern > h6 > span{
+    color: black;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.btn-next-1{
+    background-color: #fff;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    margin: 10px 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.btn-next-1:hover{
+    background-color: #000;
+    color: #fff;
+}
+.cftc2-i-radio{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+.pad-intern > span{
+    color: #0f0202;
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+}
+.pad-intern > p{
+    color: black;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    
+}
+.pad-intern > p > span{
+    color: black;
+    font-size: 1rem;
+    font-weight: 600;
+    margin: 0;
+    padding: 0;
+    text-decoration: underline;
+    cursor: pointer;
+    text-transform: uppercase;
+}

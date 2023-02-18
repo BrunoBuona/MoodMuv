@@ -1,0 +1,113 @@
+@media screen  and (max-width:390px){
+    
+
+    .rbc-month-row{
+    }
+    .rbc-event-content{
+        font-size: small;
+    }
+    span[role="columnheader"], span[role="columnheader"]{
+        font-size: .6em!important;
+
+    }
+}
+.rbc-month-row{
+    min-height:8rem;
+}
+
+.rbc-toolbar-label{
+    font-size: 2.25rem;
+    font-weight:bold;
+    background: -webkit-linear-gradient(#563D81, #6E5E8B);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.rbc-toolbar>span:first-child{
+    display: flex;
+}
+/* TODAY */
+.rbc-toolbar>span:first-child>button:nth-child(1){
+    order: 2;
+    border-radius: 0;
+    border-left: 0;
+}
+/* Back */
+.rbc-toolbar>span:first-child>button:nth-child(2){
+    order: 1;
+    border-radius: .2rem 0 0 .2rem;
+    -webkit-border-radius: .2rem 0 0 .2rem;
+    -moz-border-radius: .2rem 0 0 .2rem;
+    -ms-border-radius: .2rem 0 0 .2rem;
+    -o-border-radius: .2rem 0 0 .2rem;
+}
+/* next */
+.rbc-toolbar>span:first-child>button:nth-child(3){
+    order: 3;
+}
+.rbc-month-header{
+    height: 3rem;    
+background:#f3f3f3;
+color: #999;
+text-transform: uppercase;
+margin: auto 0;
+}
+.rbc-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.rbc-header>span{
+    text-align: center;
+
+}
+.rbc-day-bg{
+    text-align: center;
+    height: 100%;
+}
+.rbc-today{
+    height: 100%;
+    display: flex;
+}
+.rbc-header{
+    font-weight: 600;
+    font-size: 1rem;
+}
+.rbc-date-cell{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+}
+.rbc-button-link{
+    color: #999;
+    margin-top: .4rem;
+    margin-bottom: .4rem;
+    width: 1.4rem;
+    height: 1.4rem;
+    font-size: 1rem;
+    border-radius: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    -o-border-radius: 100%;
+}
+.rbc-show-more{
+    width: 100%;
+    color: #999!important;
+    padding: 0!important;
+    border-radius:0;
+    background-color: transparent;
+    font-weight: 300;
+}
+.rbc-show-more:hover{
+    color: #666!important;
+}
+span[role="columnheader"], span[role="columnheader"]{
+    font-size: .6em!important;
+
+}
