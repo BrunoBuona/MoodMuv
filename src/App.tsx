@@ -135,7 +135,7 @@ function App(props: any) {
           <SpinnerContext.Provider value={{ spinner, setSpinner }}>
             <Nav newUser={props.currentUser} />
             <Routes>
-              {/* <Route path="/" element={<Home title="Home" />}></Route> */}
+              <Route path="/" element={<Home title="Home" />}></Route>
               <Route
                 path="/home"
                 element={<Home title="Home" newUser={props.currentUser} />}

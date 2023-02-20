@@ -11,68 +11,67 @@ import "../../styles/mediaqueriesHome.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-
-const Home = ({ title,newUser }: any) => {
-
-  let key = newUser
-  let idUser:string=key?._id 
+const Home = ({ title, newUser }: any) => {
+  let key = newUser;
+  let idUser: string = key?._id;
   const [preapprovalId, setPreapprovalId] = useState("");
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const id = params.get("preapproval_id");
-    if (id) {
-      if(key.aprove){
+
+    if (key && id) {
+      if (key.aprove) {
         setPreapprovalId(id);
         const accessToken =
           "APP_USR-2687418290941497-122012-3c28388c0004367b9e643811411b4cee-1269149927";
-  
+
         const url = `https://api.mercadopago.com/preapproval/${id}?access_token=${accessToken}`;
-        
+
         axios
-        .get(url)
-        .then((response) => {
-          const subscriptionStatus = response.data.status;
-         
-          if (subscriptionStatus === "authorized") {
-            const url = `http://localhost:4000/api/student`;
+          .get(url)
+          .then((response) => {
+            const subscriptionStatus = response.data.status;
 
-            let data={
-              id:idUser,
-              newUser:key.newUser,
-              plan: response.data.reason,
-              aprove:false
-            }
+            if (subscriptionStatus === "authorized") {
+              const url = `http://localhost:4000/api/student`;
 
-            axios
-              .put(url, data)
-              .then((res) => {
-                Swal.fire({
-                  position: "top-end",
-                  icon: "success",
-                  title: "Su plan fue aprobado!",
-                  showConfirmButton: false,
-                  timer: 1500,
+              let data = {
+                id: idUser,
+                newUser: key.newUser,
+                plan: response.data.reason,
+                aprove: false,
+              };
+
+              axios
+                .put(url, data)
+                .then((res) => {
+                  Swal.fire({
+                    position: "top-end",
+                    icon: "success",
+                    title: "Su plan fue aprobado!",
+                    showConfirmButton: false,
+                    timer: 1500,
+                  });
+                })
+                .catch((error) => {
+                  console.error("Error fetching subscription status:", error);
+                  Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: error.response,
+                  });
                 });
-              })
-              .catch((error) => {
-                console.error("Error fetching subscription status:", error);
-                Swal.fire({
-                  icon: "error",
-                  title: "Oops...",
-                  text: error.response,
-                });
-              });
             }
-        })
-        .catch((error) => {
-          console.error("Error fetching subscription status:", error);
-        });
+          })
+          .catch((error) => {
+            console.error("Error fetching subscription status:", error);
+          });
       }
-    }  
-  }  , []);
+    }
+  }, []);
 
   document.title = title;
   return (
