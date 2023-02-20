@@ -35,7 +35,7 @@ const Home = ({ title,newUser }: any) => {
         .get(url)
         .then((response) => {
           const subscriptionStatus = response.data.status;
-          console.log("Subscription status:", subscriptionStatus);
+         
           if (subscriptionStatus === "authorized") {
             const url = `http://localhost:4000/api/student`;
 

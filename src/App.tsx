@@ -46,53 +46,8 @@ import axios from "axios";
 function App(props: any) {
   const [loading, setLoading] = useState(true);
   const [spinner, setSpinner] = useState(true);
+  const [fechaActual,setFechaActual]=useState(new Date())
   const [fechaUnMesDespues, setFechaUnMesDespues] = useState("");
-
-  const fechaActual = new Date(); //no se borra esta linea
-  //const fechaActual = new Date("2023-02-22T10:30:00.000Z"); //hay que borrar esta linea, es solamente para pruebas
-  const diferencia =
-    new Date(fechaUnMesDespues).getTime() - fechaActual.getTime();
-  const diasFaltantes = Math.ceil(diferencia / (24 * 60 * 60 * 1000));
-
-  const fechaUltimaAlerta = localStorage.getItem("fechaUltimaAlerta");
-
-  const yaSeMostroAlertaHoy =
-    fechaUltimaAlerta === fechaActual.toLocaleDateString();
-
-  if (diasFaltantes <= 5 && !yaSeMostroAlertaHoy) {
-    Swal.fire({
-      title: `Faltan ${diasFaltantes} día/s para que se cumpla un mes de diferencia`,
-      showClass: {
-        popup: "animate__animated animate__fadeInDown",
-      },
-      hideClass: {
-        popup: "animate__animated animate__fadeOutUp",
-      },
-    });
-
-    localStorage.setItem("fechaUltimaAlerta", fechaActual.toLocaleDateString());
-  }
-
-  if (diasFaltantes === 0 && !yaSeMostroAlertaHoy) {
-    const url = `http://localhost:4000/api/student`;
-
-    let data = {
-      id: props.currentUser._id,
-      plan: "",
-    };
-
-    axios.put(url, data).then((res) => {
-      Swal.fire({
-        title: `Su prueba gratuita vencio`,
-        showClass: {
-          popup: "animate__animated animate__fadeInDown",
-        },
-        hideClass: {
-          popup: "animate__animated animate__fadeOutUp",
-        },
-      });
-    });
-  }
 
   useEffect(() => {
     if (props.currentUser == "login" || !props.currentUser) {
@@ -103,25 +58,73 @@ function App(props: any) {
     }
     setFechaUnMesDespues(props?.currentUser?.dateFin);
 
-     if(props.currentUser?.plan && props.currentUser?.plan==='free'){
-      console.log(true,'SE ACTIVO EL IF')
+    if (props.currentUser?.plan && props.currentUser?.plan === "free") {
+
+      //const fechaActual = new Date("2023-02-22T10:30:00.000Z"); //hay que borrar esta linea, es solamente para pruebas
+      const diferencia =
+        new Date(fechaUnMesDespues).getTime() - fechaActual.getTime();
+      const diasFaltantes = Math.ceil(diferencia / (24 * 60 * 60 * 1000));
+
+      const fechaUltimaAlerta = localStorage.getItem("fechaUltimaAlerta");
+
+      const yaSeMostroAlertaHoy =
+        fechaUltimaAlerta === fechaActual.toLocaleDateString();
+
+      if (diasFaltantes > 0 && diasFaltantes <= 5 && !yaSeMostroAlertaHoy) {
+        Swal.fire({
+          title: `Faltan ${diasFaltantes} día/s para que se cumpla un mes de diferencia`,
+          showClass: {
+            popup: "animate__animated animate__fadeInDown",
+          },
+          hideClass: {
+            popup: "animate__animated animate__fadeOutUp",
+          },
+        });
+
+        localStorage.setItem(
+          "fechaUltimaAlerta",
+          fechaActual.toLocaleDateString()
+        );
+      }
+      if (diasFaltantes === 0 && !yaSeMostroAlertaHoy) {
+        const url = `http://localhost:4000/api/student`;
+
+        let data = {
+          id: props.currentUser._id,
+          plan: "",
+          diference:null,
+        };
+
+        axios.put(url, data).then((res) => {
+          Swal.fire({
+            title: `Su prueba gratuita vencio`,
+            showClass: {
+              popup: "animate__animated animate__fadeInDown",
+            },
+            hideClass: {
+              popup: "animate__animated animate__fadeOutUp",
+            },
+          });
+        });
+      }
+
+      console.log(true, "SE ACTIVO EL IF");
       const url = `http://localhost:4000/api/student`;
-      
+
       let data = {
         id: props.currentUser?._id,
-        diference: diasFaltantes
+        diference: diasFaltantes,
       };
-  
+
       axios.put(url, data).then((res) => {
-        console.log(res)
+        console.log(res);
       });
-    } 
-    
+    }
 
     setTimeout(() => {
       setLoading(false);
     }, 2000);
-  }, [props.currentUser]);
+  }, [props.currentUser,fechaActual]);
 
   return (
     <>
@@ -132,7 +135,7 @@ function App(props: any) {
           <SpinnerContext.Provider value={{ spinner, setSpinner }}>
             <Nav newUser={props.currentUser} />
             <Routes>
-              <Route path="/" element={<Home title="Home" />}></Route>
+              {/* <Route path="/" element={<Home title="Home" />}></Route> */}
               <Route
                 path="/home"
                 element={<Home title="Home" newUser={props.currentUser} />}

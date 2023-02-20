@@ -18,6 +18,7 @@ export default function FreeTrial2(props: any) {
     let data={
         id:id,
         newUser:props.newUser.currentUser.newUser,
+        plan:'free',
         dateInit: fechaActual,
         dateFin: fechaUnMesDespues,
     }
