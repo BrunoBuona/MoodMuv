@@ -16,15 +16,15 @@ import { useNavigate } from "react-router-dom";
 const Home = ({ title, newUser }: any) => {
   let key = newUser;
   let idUser: string = key?._id;
-  const [preapprovalId, setPreapprovalId] = useState("");
+  //const [preapprovalId, setPreapprovalId] = useState("");
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const id = params.get("preapproval_id");
-
-    if (key && id) {
-      if (key.aprove) {
-        setPreapprovalId(id);
+    let idsAprove=key.idsAprove
+  
+    if (key && !idsAprove.includes(id)) {
+      
         const accessToken =
           "APP_USR-2687418290941497-122012-3c28388c0004367b9e643811411b4cee-1269149927";
 
@@ -42,8 +42,10 @@ const Home = ({ title, newUser }: any) => {
                 id: idUser,
                 newUser: key.newUser,
                 plan: response.data.reason,
-                aprove: false,
+                idsAprove:[...key.idsAprove]
               };
+
+              data.idsAprove.push(id)
 
               axios
                 .put(url, data)
@@ -69,8 +71,8 @@ const Home = ({ title, newUser }: any) => {
           .catch((error) => {
             console.error("Error fetching subscription status:", error);
           });
-      }
-    }
+      } 
+   
   }, []);
 
   document.title = title;
