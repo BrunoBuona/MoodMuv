@@ -27,8 +27,6 @@ import "../../styles/mediaqueriesNavbar.css";
 const navigation = [
   { name: "Explorar", href: "#", current: false },
   { name: "Planes", href: "#", current: false },
-  { name: "Quienes somos", href: "#", current: false },
-  { name: "Como funciona la plataforma", href: "#", current: false },
   { name: "Iniciar sesión", href: "#", current: false },
   { name: "Activa tu prueba", href: "#", current: true },
 ];
@@ -36,8 +34,6 @@ const navigation = [
 const link = [
   "/explore",
   "/payments",
-  "/aboutUs",
-  "/howTo",
   "/signIn",
   "/activateAccount",
 ];
