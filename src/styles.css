@@ -10,7 +10,15 @@ body{
 .p-why2{
     min-height: 5vh;
 }
-
+.btn-home-standby{
+    background-color: #4d006d;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    transition: all .3s ease-in-out;
+}
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
