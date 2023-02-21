@@ -18,9 +18,17 @@ const PlanesMaqueta = (props: any) => {
   ) => {
     
     if (id !== "") {
-
-      //const url = `https://api.mercadopago.com/preapproval/${id}`;
-      const url = `http://localhost:4000/api/cancelSubscription/${id}`;
+      Swal.fire({
+        title: 'Esta seguro?',
+        text: "Esta accion no podra ser revertida",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const url = `http://localhost:4000/api/cancelSubscription/${id}`;
           let data = {
             status: "cancelled"
       };
@@ -37,6 +45,11 @@ const PlanesMaqueta = (props: any) => {
               data.idsAprove = data.idsAprove.filter(i => i !== id);
               axios
               .put(url, data).then((res) => {
+                Swal.fire(
+                  'Cancelado!',
+                  'Su plan ha sido cancelado',
+                  'success'
+                )
                 setTimeout(function () {
                   navigate(`/home/?preapproval_id=${id}`);
                 }, 2000);
@@ -53,8 +66,9 @@ const PlanesMaqueta = (props: any) => {
             title: "Oops...",
             text: error.response,
           });
-        }); 
-     
+        });
+        }
+      }) 
     }
   };
 
