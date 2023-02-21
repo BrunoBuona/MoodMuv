@@ -11,7 +11,7 @@ import "../../styles/mediaqueriesHome.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import { useNavigate } from "react-router-dom";
+
 
 const Home = ({ title, newUser }: any) => {
   let key = newUser;
@@ -21,9 +21,10 @@ const Home = ({ title, newUser }: any) => {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const id = params.get("preapproval_id");
-    let idsAprove=key.idsAprove
-  
-    if (key && !idsAprove.includes(id)) {
+    let idsAprove=key?.idsAprove
+   
+
+    if (key && id && !idsAprove.includes(id)) {
       
         const accessToken =
           "APP_USR-2687418290941497-122012-3c28388c0004367b9e643811411b4cee-1269149927";
@@ -34,7 +35,7 @@ const Home = ({ title, newUser }: any) => {
           .get(url)
           .then((response) => {
             const subscriptionStatus = response.data.status;
-
+            
             if (subscriptionStatus === "authorized") {
               const url = `http://localhost:4000/api/student`;
 
@@ -42,6 +43,7 @@ const Home = ({ title, newUser }: any) => {
                 id: idUser,
                 newUser: key.newUser,
                 plan: response.data.reason,
+                idNow:id,
                 idsAprove:[...key.idsAprove]
               };
 
@@ -65,7 +67,35 @@ const Home = ({ title, newUser }: any) => {
                     title: "Oops...",
                     text: error.response,
                   });
+                }); 
+            }
+            if(subscriptionStatus=='cancelled'){
+              const url = `http://localhost:4000/api/student`;
+              let data = {
+                id: idUser,
+                newUser: key.newUser,
+                plan: '',
+                idNow: ''
+              };
+              axios
+              .put(url, data).then((res) => {
+                Swal.fire({
+                  position: "top-end",
+                  icon: "success",
+                  title: "Su plan fue cancelado satisfactoriamente",
+                  showConfirmButton: false,
+                  timer: 1500,
                 });
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+                Swal.fire({
+                  icon: "error",
+                  title: "Oops...",
+                  text: error.response,
+                });
+              }); 
+              
             }
           })
           .catch((error) => {

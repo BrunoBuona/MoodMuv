@@ -42,7 +42,7 @@ export default function Checkout(props: any) {
   /* let key = props.newUser.currentUser
   console.log(key) */
   
-  const start_date=new Date()
+  //const start_date=new Date()
 
   class PaymentDataSub {
     reason: string;

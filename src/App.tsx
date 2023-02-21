@@ -85,6 +85,7 @@ function App(props: any) {
           "fechaUltimaAlerta",
           fechaActual.toLocaleDateString()
         );
+
       }
       if (diasFaltantes === 0 && !yaSeMostroAlertaHoy) {
         const url = `http://localhost:4000/api/student`;
@@ -107,19 +108,19 @@ function App(props: any) {
           });
         });
       }
-
-      console.log(true, "SE ACTIVO EL IF");
+      
       const url = `http://localhost:4000/api/student`;
-
-      let data = {
-        id: props.currentUser?._id,
-        diference: diasFaltantes,
-      };
-
-      axios.put(url, data).then((res) => {
-        console.log(res);
+  
+          let data = {
+            id: props.currentUser?._id,
+            diference: diasFaltantes,
+          };
+  
+          axios.put(url, data).then((res) => {
+            console.log(res);
       });
     }
+
 
     setTimeout(() => {
       setLoading(false);
@@ -135,7 +136,7 @@ function App(props: any) {
           <SpinnerContext.Provider value={{ spinner, setSpinner }}>
             <Nav newUser={props.currentUser} />
             <Routes>
-              <Route path="/" element={<Home title="Home" />}></Route>
+              <Route path="/" element={<Home title="Home" newUser={props.currentUser} />}></Route>
               <Route
                 path="/home"
                 element={<Home title="Home" newUser={props.currentUser} />}

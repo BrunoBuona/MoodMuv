@@ -4,8 +4,59 @@ import check from "../../assets/checkeds/check.png";
 import disableCheck from "../../assets/checkeds/disableCheck.png";
 import Checkout from "../../pages/FT3/Checkout";
 
+import axios from "axios";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+
 const PlanesMaqueta = (props: any) => {
-  const key = props.newUser;
+  const key = props?.newUser;
+  let id: string = key?.idNow;
+  const navigate = useNavigate();
+
+  const cancelPlan = async (
+    e: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    
+    if (id !== "") {
+
+      //const url = `https://api.mercadopago.com/preapproval/${id}`;
+      const url = `http://localhost:4000/api/cancelSubscription/${id}`;
+          let data = {
+            status: "cancelled"
+      };
+
+      axios
+        .put(url, data)
+        .then((res) => {
+          console.log(res)
+          const url = `http://localhost:4000/api/student`;
+              let data = {
+                id: key._id,
+                idsAprove:[...key.idsAprove]
+              };
+              data.idsAprove = data.idsAprove.filter(i => i !== id);
+              axios
+              .put(url, data).then((res) => {
+                setTimeout(function () {
+                  navigate(`/home/?preapproval_id=${id}`);
+                }, 2000);
+              })
+              .catch((error) => {
+                console.error("Error:", error);
+              })
+
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: error.response,
+          });
+        }); 
+     
+    }
+  };
 
   return (
     <div className="bg-[#f3f3f3] w-full min-h-[90vh] flex flex-col justify-center items-center gap-2">
@@ -45,7 +96,7 @@ const PlanesMaqueta = (props: any) => {
                 </p>
               </div>
             </div>
-            {key?.plan === "free" || !key?.newUser  ? (
+            {(key && (key?.plan === "free" || !key?.newUser)) ? (
               <button className="border rounded-md w-full text-[#563D81] font-bold">
                 <Link to={"#"}>Adquirido</Link>
               </button>
@@ -89,16 +140,17 @@ const PlanesMaqueta = (props: any) => {
                 </p>
               </div>
             </div>
-            {key?.plan === "happy"  ?
+            {key?.plan === "happy" ? (
               <button className="border rounded-md w-full text-[#563D81] font-bold">
-              {" "}
-              <Link to={"#"}>Adquirido</Link>
-            </button>:
+                {" "}
+                <Link to={"#"}>Adquirido</Link>
+              </button>
+            ) : (
               <button className="border rounded-md w-full text-[#563D81] font-bold">
                 {" "}
                 <Link to={"/activateAccount/checkout?happy"}>Comprar</Link>
               </button>
-            }
+            )}
           </div>
         </div>
         <div className="bg-[#f5f5f5] border rounded-xl w-52 h-64">
@@ -129,9 +181,12 @@ const PlanesMaqueta = (props: any) => {
                 </p>
               </div>
             </div>
-            {key?.plan === "full"  ? (
-              <button className="border rounded-md w-full text-[#563D81] font-bold">
-                <Link to={"#"}>Adquirido</Link>
+            {key?.plan === "full" ? (
+              <button
+                className="border rounded-md w-full text-[#563D81] font-bold"
+                onClick={cancelPlan}
+              >
+                Cancelar plan
               </button>
             ) : (
               <button className="border rounded-md w-full text-[#563D81] font-bold">
