@@ -141,9 +141,8 @@ const PlanesMaqueta = (props: any) => {
               </div>
             </div>
             {key?.plan === "happy" ? (
-              <button className="border rounded-md w-full text-[#563D81] font-bold">
-                {" "}
-                <Link to={"#"}>Adquirido</Link>
+              <button className="border rounded-md w-full text-[#563D81] font-bold" onClick={cancelPlan}>
+               Cancelar plan
               </button>
             ) : (
               <button className="border rounded-md w-full text-[#563D81] font-bold">
