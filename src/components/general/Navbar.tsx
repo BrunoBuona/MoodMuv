@@ -28,14 +28,15 @@ const navigation = [
   { name: "Explorar", href: "#", current: false },
   { name: "Planes", href: "#", current: false },
   { name: "Iniciar sesión", href: "#", current: false },
-  { name: "Activa tu prueba", href: "#", current: true },
+
+
+
 ];
 
 const link = [
   "/explore",
   "/payments",
   "/signIn",
-  "/activateAccount",
 ];
 
 function classNames(...classes: any) {
@@ -54,7 +55,7 @@ function Navbar(props: any) {
   const setearOpenDrop = () => {
     setOpenDrop(!openDrop);
   };
-
+  console.log(props)
   const handleOpenUserMenu = (event: any) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -112,124 +113,98 @@ function Navbar(props: any) {
                 </div>
                 <div className="hidden md:block sm:ml-6 w-full">
                   <div className="flex justify-end items-center">
-                    {navigation.map((item, index) => (
-                      <div key={item.name}>
-                        {item.name == "Iniciar sesión" ? (
-                          props.currentUser?._id ? (
-                            <Box sx={{ flexGrow: 0 }}>
-                              <Tooltip title="Open settings">
-                                <IconButton
-                                  onClick={handleOpenUserMenu}
-                                  sx={{ p: 0, m: 0, width: "auto", mr: 5 }}
-                                >
-                                  <Avatar
-                                    alt="P"
-                                    src={
-                                      fileValue !== undefined
-                                        ? `data:image/png;base64,${fileValue}`
-                                        : ""
-                                    }
-                                    sx={{ width: 30, height: 30, fontSize: 20 }}
-                                  />
-                                </IconButton>
-                              </Tooltip>
-                              <Menuu
-                                sx={{ mt: "45px" }}
-                                id="menu-appbar"
-                                anchorEl={anchorElUser}
-                                anchorOrigin={{
-                                  vertical: "top",
-                                  horizontal: "right",
-                                }}
-                                keepMounted
-                                transformOrigin={{
-                                  vertical: "top",
-                                  horizontal: "right",
-                                }}
-                                open={Boolean(anchorElUser)}
-                                onClose={handleCloseUserMenu}
-                              >
-                                <Link to={"/account"}>
-                                  <MenuItem onClick={handleCloseUserMenu}>
-                                    Profile
-                                  </MenuItem>
-                                </Link>
+                    <Link to={"/explore"}>
+                      <p>Explorar</p>
+                    </Link>
+                    <Link to={"/plans"}>
+                      <p>Planes</p>
+                    </Link>
+                    {/* Esto de acá abajo es el desplegable */}
+                    {props.currentUser?._id ? 
+                    <Box sx={{ flexGrow: 0 }}>
+                      <Tooltip title="Open settings">
+                        <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, m: 0, width: "auto", mr: 5 }}>
+                          <Avatar alt="P" src={fileValue !== undefined ? (`data:image/png;base64,${fileValue}`) : ("")} sx={{ width: 30, height: 30, fontSize: 20 }} />
+                        </IconButton>
+                      </Tooltip>
+                      <Menuu
+                        sx={{ mt: '45px' }}
+                        id="menu-appbar"
+                        anchorEl={anchorElUser}
+                        anchorOrigin={{
+                          vertical: 'top',
+                          horizontal: 'right',
+                        }}
+                        keepMounted
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'right',
+                        }}
+                        open={Boolean(anchorElUser)}
+                        onClose={handleCloseUserMenu}
+                      >
+                        <Link to={'/account'}>
+                          <MenuItem onClick={handleCloseUserMenu}>
+                            Profile
+                          </MenuItem>
+                        </Link>
 
-                                <Link to={"/account/panel"}>
-                                  <MenuItem onClick={handleCloseUserMenu}>
-                                    Panel
-                                  </MenuItem>
-                                </Link>
+                        <Link to={'/account/panel'}>
+                          <MenuItem onClick={handleCloseUserMenu}>
+                            Panel
+                          </MenuItem>
+                        </Link>
 
-                                <Link to={"/account/settings"}>
-                                  <MenuItem onClick={handleCloseUserMenu}>
-                                    Setting
-                                  </MenuItem>
-                                </Link>
+                        <Link to={'/account/settings'}>
+                          <MenuItem onClick={handleCloseUserMenu}>
+                            Setting
+                          </MenuItem>
+                        </Link>
 
-                                {props.currentUser.admin && (
-                                  <Link to={"/account/admin"}>
-                                    <MenuItem onClick={handleCloseUserMenu}>
-                                      Admin
-                                    </MenuItem>
-                                  </Link>
-                                )}
-
-                                <Typography
-                                  onClick={() => {
-                                    props.logOut();
-                                    setearOpenDrop();
-                                    navigate("/home");
-                                    window.scrollTo(0, 0);
-                                    props.resetStoreTeacher();
-                                    props.resetStoreStudent();
-                                    props.resetStoreActivities();
-                                  }}
-                                >
-                                  <MenuItem onClick={handleCloseUserMenu}>
-                                    Logout
-                                  </MenuItem>
-                                </Typography>
-                              </Menuu>
-                            </Box>
-                          ) : (
-                            <Link to={link[navigation.indexOf(item)]}>
-                              <span
-                                className={classNames(
-                                  item.current
-                                    ? "hover:bg-gradient-to-t hover:from-[#443166] hover:to-[#59457B] bg-gradient-to-t from-[#563D81] to-[#6E5E8B] text-white"
-                                    : "text-black",
-                                  "px-3 py-2 rounded-md text-sm font-medium"
-                                )}
-                                aria-current={item.current ? "page" : undefined}
-                              >
-                                {item.name}
-                              </span>
-                            </Link>
-                          )
-                        ) : (
-							
-                          <Link to={link[navigation.indexOf(item)]}>
-                            <span
-                              className={classNames(
-                                item.current
-                                  ? "hover:bg-gradient-to-t hover:from-[#443166] hover:to-[#59457B] bg-gradient-to-t from-[#563D81] to-[#6E5E8B] text-white"
-                                  : "text-black",
-                                "px-3 py-2 rounded-md text-sm font-medium"
-                              )}
-                              aria-current={item.current ? "page" : undefined}
-                            >
-                              {item.name}
-                            </span>
+                        {props?.currentUser?.admin && (
+                          <Link to={'/account/admin'}>
+                            <MenuItem onClick={handleCloseUserMenu}>
+                              Admin
+                            </MenuItem>
                           </Link>
                         )}
-                      </div>
-                    ))}
+
+
+                        <Typography onClick={() => {
+                          props.logOut()
+                          setearOpenDrop()
+                          navigate('/home')
+                          window.scrollTo(0, 0);
+                          props.resetStoreTeacher()
+                          props.resetStoreStudent()
+                          props.resetStoreActivities()
+                        }}>
+
+                          <MenuItem onClick={handleCloseUserMenu}>
+                            Logout
+                          </MenuItem>
+
+                        </Typography>
+                      </Menuu>
+                    </Box>
+                    : <Link to='/signin'>Iniciar Sesion</Link>}
+                    {
+                      props?.currentUser?.newUser == false || props?.currentUser?.newUser == null ?
+                    <Link to={`/account`}>
+                      <p>{props?.currentUser?.credits} Moods</p>
+                    </Link>
+                    : 
+                    <Link to={`/plans`}>
+                      <p>FREE TRIAL</p>
+                    </Link>
+                    }
                   </div>
                 </div>
               </div>
             </div>
           </div>
+
+          {/* ESTO DE ACA ABAJO ES EL NAVBAR EN RESPONSIVE */}
 
           <Disclosure.Panel className="">
             <div className="space-y-1 px-2 pt-2 pb-3">
