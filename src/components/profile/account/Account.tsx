@@ -148,8 +148,13 @@ class Account extends React.Component <any, any>{
 					}
 				</div>
 				<div id="div-credits "className="plan-div">
-					<p>PLAN FREE</p>
-					<p>0 CREDITS</p>
+					{
+						this.props?.currentUser?.plan === "" ? <p className="text-[#222] font-bold text-sm">Sin plan activo</p>
+						: this.props?.currentUser?.plan === "free" ? <p className="text-[#222] font-bold text-sm">Plan: Free</p>
+						: this.props?.currentUser?.plan === "happy" ? <p className="text-[#222] font-bold text-sm">Plan: Happy</p>
+						: <p className="text-[#222] font-bold text-sm">Plan: Full</p>
+					}
+					<p>{this.props?.currentUser.credits} Moods</p>
 				</div>
 
 {/* ICONS */}
