@@ -156,7 +156,7 @@ function App(props: any) {
               ></Route>
               <Route path="/forgotPass" element={<ForgotPassword />}></Route>
               <Route
-                path="/payments"
+                path="/plans"
                 element={<Planes newUser={props.currentUser} />}
               ></Route>
               <Route path="/aboutUs" element={<AboutUs />}></Route>

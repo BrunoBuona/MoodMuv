@@ -147,7 +147,10 @@ class Account extends React.Component <any, any>{
 						</NavLink>
 					}
 				</div>
-
+				<div id="div-credits "className="plan-div">
+					<p>PLAN FREE</p>
+					<p>0 CREDITS</p>
+				</div>
 
 {/* ICONS */}
 			    </div>
