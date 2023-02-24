@@ -38,6 +38,7 @@ const PlanesMaqueta = (props: any) => {
               let data = {
                 id: key._id,
                 idsAprove: [...key.idsAprove],
+                test:false,
               };
               data.idsAprove = data.idsAprove.filter((i) => i !== id);
               axios

@@ -48,7 +48,7 @@ export default function Checkout(props: any) {
       transaction_amount: number;
       //start_date: string;
       //end_date: string;
-      free_trial?:{
+      free_trial:{
         frequency:number;
         frequency_type:string;
       }
@@ -75,7 +75,7 @@ export default function Checkout(props: any) {
         (this.payer_email = email);
     }
   }
-
+  console.log(key)
   class PaymentDataSub2 {
     reason: string;
     auto_recurring: {

@@ -28,6 +28,7 @@ const Home = ({ title, newUser }: any) => {
               id: idUser,
               newUser: key.newUser,
               plan: response.data.reason,
+              test:true,
               idNow: id,
               idsAprove: [...key.idsAprove],
             };
@@ -60,6 +61,7 @@ const Home = ({ title, newUser }: any) => {
               id: idUser,
               plan: "",
               idNow: "",
+              test:false
             };
             axios
               .put(url, data)
