@@ -23,12 +23,11 @@ const Home = ({ title, newUser }: any) => {
 
           if (subscriptionStatus === "authorized") {
             const url = `http://localhost:4000/api/student`;
-
             let data = {
               id: idUser,
               newUser: key.newUser,
               plan: response.data.reason,
-              test:true,
+              test: key.test,
               idNow: id,
               idsAprove: [...key.idsAprove],
             };
