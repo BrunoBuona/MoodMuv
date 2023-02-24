@@ -150,11 +150,12 @@ class Account extends React.Component <any, any>{
 				<div id="div-credits "className="plan-div">
 					{
 						this.props?.currentUser?.plan === "" ? <p className="text-[#222] font-bold text-sm">Sin plan activo</p>
-						: this.props?.currentUser?.plan === "free" ? <p className="text-[#222] font-bold text-sm">Plan: Free</p>
-						: this.props?.currentUser?.plan === "happy" ? <p className="text-[#222] font-bold text-sm">Plan: Happy</p>
-						: <p className="text-[#222] font-bold text-sm">Plan: Full</p>
+						: this.props?.currentUser?.plan === "free" ? <p className="text-[#222] font-bold text-sm">Plan: TRIAL HAPPY</p>
+						: this.props?.currentUser?.plan === "happy" ? <p className="text-[#222] font-bold text-sm">Plan: HAPPY</p>
+						: <p className="text-[#222] font-bold text-sm">Plan: FULL</p>
 					}
 					<p>{this.props?.currentUser.credits} Moods</p>
+					<p>Le quedan {this.props?.currentUser.diference} dias a tu plan.</p>
 				</div>
 
 {/* ICONS */}

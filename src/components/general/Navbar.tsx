@@ -120,6 +120,7 @@ function Navbar(props: any) {
                       <p>Planes</p>
                     </Link>
                     {/* Esto de acá abajo es el desplegable */}
+                    {props.currentUser?._id ? 
                     <Box sx={{ flexGrow: 0 }}>
                       <Tooltip title="Open settings">
                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, m: 0, width: "auto", mr: 5 }}>
@@ -160,7 +161,7 @@ function Navbar(props: any) {
                           </MenuItem>
                         </Link>
 
-                        {props.currentUser.admin && (
+                        {props?.currentUser?.admin && (
                           <Link to={'/account/admin'}>
                             <MenuItem onClick={handleCloseUserMenu}>
                               Admin
@@ -186,10 +187,11 @@ function Navbar(props: any) {
                         </Typography>
                       </Menuu>
                     </Box>
+                    : <Link to='/signin'>Iniciar Sesion</Link>}
                     {
-                      props?.currentUser.credits > 0 ?
+                      props?.currentUser?.newUser == false || props?.currentUser?.newUser == null ?
                     <Link to={`/account`}>
-                      <p>{props?.currentUser.credits} Moods</p>
+                      <p>{props?.currentUser?.credits} Moods</p>
                     </Link>
                     : 
                     <Link to={`/plans`}>
