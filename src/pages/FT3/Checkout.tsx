@@ -3,16 +3,18 @@ import "./Checkout.css";
 import { useState } from "react";
 import { width } from "@mui/system";
 import axios from "axios";
+import { months } from "moment";
 
 export default function Checkout(props: any) {
   let theId = location.search.slice(1);
   let price;
   let plan;
   let planimg;
+  let key=props.newUser.currentUser
   theId === "happy"
     ? (price = 400)
     : theId === "full"
-    ? (price = 550)
+    ? (price = 3500)
     : theId === "free"
     ? (price = 0)
     : (price = 0);
@@ -34,15 +36,9 @@ export default function Checkout(props: any) {
         "https://humanidades.com/wp-content/uploads/2017/02/perro-3-e1561679226953.jpg")
     : (planimg =
         "https://imagenes.elpais.com/resizer/iTvj-2_NqCqbV8Q8KxaC7uafCB0=/1960x1470/cloudfront-eu-central-1.images.arcpublishing.com/prisa/ZM2ZBNP5XUKH63E4MNQDBLV3SI.jpg");
+  
   const [methodcc, setMethodcc] = useState(true);
   const [methodmp, setMethodmp] = useState(false);
-
-  //Payment
-
-  /* let key = props.newUser.currentUser
-  console.log(key) */
-  
-  //const start_date=new Date()
 
   class PaymentDataSub {
     reason: string;
@@ -52,6 +48,10 @@ export default function Checkout(props: any) {
       transaction_amount: number;
       //start_date: string;
       //end_date: string;
+      free_trial?:{
+        frequency:number;
+        frequency_type:string;
+      }
       currency_id: string;
     };
     back_url: string;
@@ -65,6 +65,58 @@ export default function Checkout(props: any) {
             transaction_amount: price,
             //start_date: "2023-02-06T15:59:52.581Z",
             //end_date: "2023-02-08T15:59:52.581Z",
+            free_trial: {
+              frequency: 1,
+              frequency_type: "months"
+            },
+            currency_id: "ARS",
+        }),
+        (this.back_url = "https://www.google.com/"),
+        (this.payer_email = email);
+    }
+  }
+
+  class PaymentDataSub2 {
+    reason: string;
+    auto_recurring: {
+      frequency: number;
+      frequency_type: string;
+      transaction_amount: number;
+      currency_id: string;
+    };
+    back_url: string;
+    payer_email: string;
+
+    constructor(reason: string, email: string, price: number) {
+        (this.reason = reason),
+        (this.auto_recurring = {
+            frequency: 1,
+            frequency_type: "months",
+            transaction_amount: price,
+            currency_id: "ARS",
+        }),
+        (this.back_url = "https://www.google.com/"),
+        (this.payer_email = email);
+    }
+  }
+
+  class PaymentDataFull {
+    reason: string;
+    auto_recurring: {
+      frequency: number;
+      frequency_type: string;
+      transaction_amount: number;
+      currency_id: string;
+    };
+    back_url: string;
+    payer_email: string;
+
+    constructor(reason: string, email: string, price: number, frequency:number) {
+        (this.reason = reason),
+        (this.auto_recurring = {
+            frequency: frequency,
+            frequency_type: "months",
+            transaction_amount: price,
             currency_id: "ARS",
         }),
         (this.back_url = "https://www.google.com/"),
@@ -77,27 +129,33 @@ export default function Checkout(props: any) {
     "test_user_1304323011@testuser.com",
     400
   );
-  const planFull = new PaymentDataSub(
+  const planHappy2 = new PaymentDataSub2(
+    "Plan Happy",
+    "test_user_1304323011@testuser.com",
+    400
+  );
+  const planFull = new PaymentDataFull(
     "Plan Full",
     "test_user_1304323011@testuser.com",
-    550
+    3500,12
   );
 
   const handleClick = async (
     e: React.MouseEvent<HTMLButtonElement>,
     paymentData: any
   ) => {
-    
-    try {
-      const url = `http://localhost:4000/api/student/subscription`;
-      const res = await axios.post(url, paymentData);
-      
-      if (res.status && res.status === 200) {
-        window.location.assign(res.data.init_point);
+
+      try {
+        const url = `http://localhost:4000/api/student/subscription`;
+        const res = await axios.post(url, paymentData);
+        
+        if (res.status && res.status === 200) {
+          window.location.assign(res.data.init_point);
+        }
+      } catch (error: any) {
+        console.log(error.response);
       }
-    } catch (error: any) {
-      console.log(error.response);
-    }
+      
   };
 
   return (
@@ -220,15 +278,18 @@ export default function Checkout(props: any) {
                 </label>
               </div>
               <div className="end-purchase-cc">
-                {theId === "happy" ? (
+                {theId === "happy" && key.newUser ? (
                   <button onClick={(e) => handleClick(e, planHappy)}>
                     Redirect to MercadoPago
                   </button>
-                ) : (
-                  <button onClick={(e) => handleClick(e, planFull)}>
+                ) : theId === "happy" && !key.newUser ? (
+                  <button onClick={(e) => handleClick(e, planHappy2)}>
                     Redirect to MercadoPago
                   </button>
-                )}
+                ):
+                <button onClick={(e) => handleClick(e, planFull)}>
+                    Redirect to MercadoPago
+                  </button>}
               </div>
             </div>
           )}

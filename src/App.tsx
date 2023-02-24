@@ -56,7 +56,7 @@ function App(props: any) {
         props.verifyToken(token);
       }
     }
-    setFechaUnMesDespues(props?.currentUser?.dateFin);
+    /* setFechaUnMesDespues(props?.currentUser?.dateFin);
 
     if (props.currentUser?.plan && props.currentUser?.plan === "free") {
 
@@ -119,7 +119,7 @@ function App(props: any) {
           axios.put(url, data).then((res) => {
             console.log(res);
       });
-    }
+    } */
 
 
     setTimeout(() => {

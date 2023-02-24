@@ -58,29 +58,14 @@ const Home = ({ title, newUser }: any) => {
             const url = `http://localhost:4000/api/student`;
             let data = {
               id: idUser,
-              newUser: key.newUser,
               plan: "",
               idNow: "",
             };
             axios
               .put(url, data)
               .then((res) => {
-                Swal.fire({
-                  position: "top-end",
-                  icon: "success",
-                  title: "Su plan fue cancelado satisfactoriamente",
-                  showConfirmButton: false,
-                  timer: 1500,
-                });
+                
               })
-              .catch((error) => {
-                console.error("Error:", error);
-                Swal.fire({
-                  icon: "error",
-                  title: "Oops...",
-                  text: error.response,
-                });
-              });
           }
         })
         .catch((error) => {
