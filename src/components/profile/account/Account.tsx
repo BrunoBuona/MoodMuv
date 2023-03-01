@@ -20,6 +20,7 @@ import jsonImgs from './radioImages.json'
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
+import './Account.css'
 
 class Account extends React.Component <any, any>{
 
@@ -128,6 +129,7 @@ class Account extends React.Component <any, any>{
 
 
 		{/* SOCIAL ICONS */}
+		
 		<div className="flex gap-4 items-center w-[6.5rem] social-div">
 			                {this?.props?.currentUser?.media[2] && this.props.currentUser?.media[2].includes('tiktok') && 
 						<NavLink href={this.props.currentUser?.media[2]}>
@@ -146,18 +148,8 @@ class Account extends React.Component <any, any>{
 						<FaFacebookSquare className="text-[#323232]"/>
 						</NavLink>
 					}
+				
 				</div>
-				<div id="div-credits "className="plan-div">
-					{
-						this.props?.currentUser?.plan === "" ? <p className="text-[#222] font-bold text-sm">Sin plan activo</p>
-						: this.props?.currentUser?.plan === "free" ? <p className="text-[#222] font-bold text-sm">Plan: TRIAL HAPPY</p>
-						: this.props?.currentUser?.plan === "happy" ? <p className="text-[#222] font-bold text-sm">Plan: HAPPY</p>
-						: <p className="text-[#222] font-bold text-sm">Plan: FULL</p>
-					}
-					<p>{this.props?.currentUser.credits} Moods</p>
-					<p>Le quedan {this.props?.currentUser.diference} dias a tu plan.</p>
-				</div>
-
 {/* ICONS */}
 			    </div>
 				{this.props.currentUser?.type === "Teacher" && <p className="text-center shadow-md bg-gradient-to-t from-[#fdc41d] to-[#fbb232] p-3 py-1 rounded-3xl text-white font-bold mb-2">Profesor</p>}

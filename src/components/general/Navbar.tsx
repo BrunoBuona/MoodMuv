@@ -10,7 +10,7 @@ import { useState, useEffect, useContext } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Logo from "../../assets/logoDegrade.png";
-
+import './Navbar.css'
 //UTILITIES
 import { Link, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
@@ -24,6 +24,7 @@ import axios from "axios";
 
 //css
 import "../../styles/mediaqueriesNavbar.css";
+import Swal from "sweetalert2";
 const navigation = [
   { name: "Explorar", href: "#", current: false },
   { name: "Planes", href: "#", current: false },
@@ -114,17 +115,17 @@ function Navbar(props: any) {
                 <div className="hidden md:block sm:ml-6 w-full">
                   <div className="flex justify-end items-center">
                     <Link to={"/explore"}>
-                      <p>Explorar</p>
+                      <p className='navbar-items'>Explorar</p>
                     </Link>
                     <Link to={"/plans"}>
-                      <p>Planes</p>
+                      <p className='navbar-items'>Planes</p>
                     </Link>
                     {/* Esto de acá abajo es el desplegable */}
                     {props.currentUser?._id ? 
                     <Box sx={{ flexGrow: 0 }}>
                       <Tooltip title="Open settings">
                         <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, m: 0, width: "auto", mr: 5 }}>
-                          <Avatar alt="P" src={fileValue !== undefined ? (`data:image/png;base64,${fileValue}`) : ("")} sx={{ width: 30, height: 30, fontSize: 20 }} />
+                          <Avatar className='navbar-items menuPic' alt="P" src={fileValue !== undefined ? (`data:image/png;base64,${fileValue}`) : ("")} sx={{ width: 30, height: 30, fontSize: 20 }} />
                         </IconButton>
                       </Tooltip>
                       <Menuu
@@ -189,14 +190,27 @@ function Navbar(props: any) {
                     </Box>
                     : <Link to='/signin'>Iniciar Sesion</Link>}
                     {
-                      props?.currentUser?.newUser == false || props?.currentUser?.newUser == null ?
+                      props?.currentUser?.newUser == false ?
                     <Link to={`/account`}>
-                      <p>{props?.currentUser?.credits} Moods</p>
+                      <p className='navbar-items'>{props?.currentUser?.credits} Moods</p>
                     </Link>
                     : 
-                    <Link to={`/plans`}>
-                      <p>FREE TRIAL</p>
-                    </Link>
+                      <button onClick={e=> Swal.fire({
+                        title: '<strong>Prueba Gratuita (30 Dias)</u></strong>',
+                        icon: 'info',
+                        html:
+                          '¿Quieres activar tu <b>prueba gratuita</b>?' + '<br/>' +
+                          '<a class="information-ft" href="#">Click aquí para más información sobre la prueba.</a> ',
+                        showCancelButton: true,
+                        focusConfirm: false,
+                        confirmButtonText:
+                          '¡Activar!',
+                        confirmButtonAriaLabel: '¡Activar!',
+                        cancelButtonText:
+                          'Aún no',
+                        cancelButtonAriaLabel: 'Thumbs down'
+                      })
+                      } className='freeTrial'>FREE TRIAL</button>
                     }
                   </div>
                 </div>

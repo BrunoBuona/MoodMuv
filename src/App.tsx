@@ -36,12 +36,10 @@ import { connect } from "react-redux";
 import userActions from "./redux/actions/userActions";
 import type { RootState, AppDispatch } from "./main";
 import { current } from "@reduxjs/toolkit";
-import FreeTrial from "./pages/FT1/FreeTrial";
-import FreeTrial2 from "./pages/FT2/FreeTrial";
-import Checkout from "./pages/FT3/Checkout";
 
 import Swal from "sweetalert2";
 import axios from "axios";
+import Payments from "./components/profile/account/Payments";
 
 function App(props: any) {
   const [loading, setLoading] = useState(true);
@@ -160,27 +158,6 @@ function App(props: any) {
                 element={<Planes newUser={props.currentUser} />}
               ></Route>
               <Route path="/aboutUs" element={<AboutUs />}></Route>
-
-              {/*Non-new-students cant access to this route. */}
-              {props?.currentUser?.plan === "" &&
-              props?.currentUser?.newUser ? (
-                <>
-                  <Route
-                    path="/activateAccount"
-                    element={<FreeTrial newUser={props} />}
-                  ></Route>
-                  <Route
-                    path="/activateAccount/2"
-                    element={<FreeTrial2 newUser={props} />}
-                  ></Route>
-                </>
-              ) : null}
-
-              <Route
-                path="/activateAccount/checkout"
-                element={<Checkout newUser={props} />}
-              ></Route>
-
               {/*Non-users cant access to these routes*/}
               {props?.currentUser ? (
                 <>
@@ -199,6 +176,8 @@ function App(props: any) {
                       <ProfileSettings title="Configuración de perfil" />
                     }
                   ></Route>
+                  <Route path='/account/settings/suscription' element={<Payments currentUser={props}/>}/>
+                  
                   <Route path="/account/panel" element={<UserPanel />}></Route>
                   <Route
                     path="/account/panel/teacherActivities/:type"

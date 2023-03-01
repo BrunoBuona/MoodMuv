@@ -1,0 +1,10 @@
+#div-credits{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+.plan-div{
+    display: flex;
+    gap: 0.35rem;
+}

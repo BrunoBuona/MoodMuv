@@ -112,6 +112,12 @@ const ProfileSettings = (props: any) => {
                 Editar perfil
               </p>
               <Link
+                to={"/account/settings/suscription"}
+                className="w-full p-2 text-xs text-[#222] py-4 px-8"
+              >
+                Mi Suscripcion
+              </Link>
+              <Link
                 to={"/account/settings/password"}
                 className="w-full p-2 text-xs text-[#222] py-4 px-8"
               >
