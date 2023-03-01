@@ -1,0 +1,8 @@
+.edit-credits{
+    height: 17px;
+    width: 17px;
+}
+.p-credits{
+    display: flex;
+    gap: 0.6rem;
+}

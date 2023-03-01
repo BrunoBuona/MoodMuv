@@ -23,6 +23,7 @@ import activityDTO from "../../types/activityDTO";;
 
 //CSS
 import '../../styles/adminPanel.css'
+import './Panel.css'
 
 class AdminPanel extends React.Component <any, any> {
 	constructor(props:any){
@@ -191,7 +192,7 @@ class AdminPanel extends React.Component <any, any> {
 											<Typography className='hover:text-[#5c4683] transition duration-300 ease-in cursor-pointer' onClick={this.props.resetStoreTeachers}>{teacher.name}</Typography>
 										</Link>
 									</AccordionSummary>
-
+								
 									{this.state.activitiesList[index] && this.state.activitiesList[index].map((activity:activityDTO) => (
 										<div className='flex justify-between items-center mb-3 p-2' key={activity._id}>
 											<AccordionDetails className='accordion'>
@@ -230,6 +231,10 @@ class AdminPanel extends React.Component <any, any> {
 
 									<AccordionDetails>
 										<Typography>
+											<p className="p-credits">
+												{/* OJO QUE ACÁ HAY QUE TRAER LA PROP DEL USUARIO, NO LA DEL CURRENTUSER */}
+											 Moods: {this.props.currentUser.credits} <img src="https://cdn-icons-png.flaticon.com/512/1160/1160515.png" className="edit-credits" alt="edit credits" />
+											 </p>	
 										</Typography>
 									</AccordionDetails>
 								</Accordion>
