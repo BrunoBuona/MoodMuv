@@ -44,6 +44,9 @@ function classNames(...classes: any) {
   return classes.filter(Boolean).join(" ");
 }
 function Navbar(props: any) {
+  const key = props?.newUser;
+  console.log(key)
+
   let { spinner, setSpinner }: any = useContext(SpinnerContext);
   let navigate = useNavigate();
 
@@ -78,6 +81,66 @@ function Navbar(props: any) {
     }
     fetchFile();
   }, [spinner, props.currentUser]);
+  
+  class PaymentDataSub {
+    reason: string;
+    auto_recurring: {
+      frequency: number;
+      frequency_type: string;
+      transaction_amount: number;
+      //start_date: string;
+      //end_date: string;
+      free_trial:{
+        frequency:number;
+        frequency_type:string;
+      }
+      currency_id: string;
+    };
+    back_url: string;
+    payer_email: string;
+
+    constructor(reason: string, email: string, price: number) {
+        (this.reason = reason),
+        (this.auto_recurring = {
+            frequency: 1,
+            frequency_type: "months",
+            transaction_amount: price,
+            //start_date: "2023-02-06T15:59:52.581Z",
+            //end_date: "2023-02-08T15:59:52.581Z",
+            free_trial: {
+              frequency: 1,
+              frequency_type: "months"
+            },
+            currency_id: "ARS",
+        }),
+        (this.back_url = "https://www.google.com/"),
+        (this.payer_email = email);
+    }
+  }
+
+  const planHappy = new PaymentDataSub(
+    "Plan Happy",
+    "test_user_1304323011@testuser.com",
+    400
+  );
+
+  const handleClick = async (
+     e: any,
+  paymentData: any
+) => {
+
+      try {
+        const url = `http://localhost:4000/api/student/subscription`;
+        const res = await axios.post(url, paymentData);
+        
+        if (res.status && res.status === 200) {
+          window.location.assign(res.data.init_point);
+        }
+      } catch (error: any) {
+        console.log(error.response);
+      }
+      
+  };
 
   return (
     <Disclosure as="nav" className=" relative z-10">
@@ -208,7 +271,16 @@ function Navbar(props: any) {
                         confirmButtonAriaLabel: '¡Activar!',
                         cancelButtonText:
                           'Aún no',
-                        cancelButtonAriaLabel: 'Thumbs down'
+                        cancelButtonAriaLabel: 'Thumbs down',
+                        didOpen: () => {
+                          let intervalId = setInterval(() => {
+                            const confirmButton = Swal.getConfirmButton();
+                            if (confirmButton) {
+                              confirmButton.addEventListener('click', (e) => handleClick(e, planHappy));
+                              clearInterval(intervalId);
+                            }
+                          }, 100);
+                        }
                       })
                       } className='freeTrial'>FREE TRIAL</button>
                     }
