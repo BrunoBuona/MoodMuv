@@ -1,8 +1,10 @@
 .edit-credits{
-    height: 17px;
+    height: 19px;
     width: 17px;
+    display: inline;
 }
 .p-credits{
     display: flex;
-    gap: 0.6rem;
+    width: 50%;
+    display: inline;
 }

@@ -212,6 +212,11 @@ function Navbar(props: any) {
                             Profile
                           </MenuItem>
                         </Link>
+                        <Link to={'/account'}>
+                          <MenuItem onClick={handleCloseUserMenu}>
+                            Mis Cursos
+                          </MenuItem>
+                        </Link>
 
                         <Link to={'/account/panel'}>
                           <MenuItem onClick={handleCloseUserMenu}>

@@ -15,6 +15,7 @@ interface studentDTO{
 	from:string,
 	uniqueString:string,
 	num:string,
+	credits:number,
 }
 
 export default studentDTO

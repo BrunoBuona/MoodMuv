@@ -11,13 +11,22 @@ import '../../../styles/mediaqueriesActivityDetail.css'
 import teacherActions from '../../../redux/actions/teacherActions'
 import { FaTiktok, FaInstagram, FaFacebookSquare } from "react-icons/fa";
 import { Link as NavLink } from '@mui/material';
-
+import './Activity.css'
+import Swal from "sweetalert2";
 const ActivityDetail = (props:any) => {
 	let id = useParams().id
 	let textColor;
 	let [fileValue, setFile] = useState('')
 	let [profileImage, setProfileImage] = useState('')
-
+  const [timeLeft, setTimeLeft] = useState(3);
+  const [isActive, setIsActive] = useState(true);
+  function startTimer() {
+    setIsActive(true);
+    setTimeout(() => {
+      setIsActive(false);
+      location.reload()
+    }, timeLeft * 1000);
+  }
 	useEffect(() => {
 		if(!props.activity){
 			props.fetchActivity(id)
@@ -234,6 +243,35 @@ const ActivityDetail = (props:any) => {
 			<p className='text-[#999]'>Check {props.teacher.name}'s Facebook</p>
 		</NavLink>
 		}
+    <div className="btn-container-buy">
+    <button onClick={e=> {
+    let price = props.activity.price
+    let credits = props.currentUser.credits
+    if (credits >= price) {
+      Swal.fire({
+        title: '¿Quieres comprar esta actividad?',
+        text: "¡No podrás reembolsar esta compra una vez realizada!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#563d81',
+        cancelButtonColor: 'grey',
+        confirmButtonText: 'Si, comprar!',
+        cancelButtonText: 'Cancelar'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let newCredits = credits - price
+          axios.put(`http://localhost:4000/api/addCredits/${props.currentUser._id}`, {credits: newCredits})
+          Swal.fire(
+            'Compra exitosa',
+            `Ahora tienes ${props.currentUser.credits - price} Moods.`,
+            'success'
+          )
+          startTimer()
+        }
+      })
+  }}
+    } className="btn-buy-activity">¡Comprar por {props.activity.price} Moods!</button>
+    </div>
 	    </div>
 
 
@@ -254,6 +292,7 @@ const mapState = (state:RootState) => {
 	return {
 		activity:state.activityReducer.activity,
 		teacher:state.teacherReducer.teacher,
+    currentUser:state.userReducer.currentUser
 	}
 }
 

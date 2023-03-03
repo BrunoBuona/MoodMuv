@@ -1,0 +1,18 @@
+.btn-buy-activity{
+    background-color: #563d81;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    margin: 0 5px;
+    transition: all 0.3s ease;
+    width: 170px;
+}
+.btn-buy-activity:hover{
+    background-color: #fff;
+    color:  #563d81;
+    border: 1px solid  #563d81;
+}

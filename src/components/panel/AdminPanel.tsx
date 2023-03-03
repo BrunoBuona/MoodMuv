@@ -1,6 +1,6 @@
 
 //UTILITIES
-import React from "react";
+import React, { useState } from "react";
 import { RootState } from "../../main";
 import { connect } from "react-redux";
 import teacherActions from "../../redux/actions/teacherActions";
@@ -34,6 +34,7 @@ class AdminPanel extends React.Component <any, any> {
 			studentFlag:true,
 		}
 	}
+
 
 	async componentDidMount(){
 		this.props.fetchTeachers()
@@ -153,8 +154,20 @@ class AdminPanel extends React.Component <any, any> {
 			}
 		})
 	}
-
+		startTimer() {
+			this.state = {
+				timeLeft: 3,
+				isActive: false,
+			  };
+		  const { timeLeft } = this.state;
+		  this.setState({ isActive: true });
+		  setTimeout(() => {
+			this.setState({ isActive: false });
+			location.reload();
+		  }, timeLeft * 1000);
+		}
 	render(): React.ReactNode {
+		let edit = false
 		return (
 			<>
 				{this.props.students && this.props.teachers && (
@@ -231,10 +244,35 @@ class AdminPanel extends React.Component <any, any> {
 
 									<AccordionDetails>
 										<Typography>
-											<p className="p-credits">
+											{
+										
+													<>
+													{console.log(this.props)}
+											<input className="p-credits" type="number" defaultValue={student.credits}/>
 												{/* OJO QUE ACÁ HAY QUE TRAER LA PROP DEL USUARIO, NO LA DEL CURRENTUSER */}
-											 Moods: {this.props.currentUser.credits} <img src="https://cdn-icons-png.flaticon.com/512/1160/1160515.png" className="edit-credits" alt="edit credits" />
-											 </p>	
+											 <img onClick={e=>{
+												let input = (document.querySelector('.p-credits')).value
+												Swal.fire({
+													title: '¿Seguro que quieres modificar los creditos del usuario?',
+													text: "¡Esta acción no se puede deshacer!",
+													icon: 'warning',
+													showCancelButton: true,
+													confirmButtonColor: '#563d81',
+													cancelButtonColor: 'grey',
+													confirmButtonText: 'Si, modificar.',
+													cancelButtonText: 'Cancelar'
+												  }).then((result) => {
+													if (result.isConfirmed) {
+													  axios.put(`http://localhost:4000/api/addCredits/${student._id}`, {credits: input})
+													  Swal.fire(
+														'Operación completada exitosamente.',
+														'Los creditos del usuario han sido modificados.',
+														'success'
+													  )
+													  this.startTimer()}})
+											 } } src="https://cdn-icons-png.flaticon.com/512/1160/1160515.png" className="edit-credits"  alt="edit credits" />
+											 </>
+											}
 										</Typography>
 									</AccordionDetails>
 								</Accordion>
