@@ -40,6 +40,7 @@ import { current } from "@reduxjs/toolkit";
 import Swal from "sweetalert2";
 import axios from "axios";
 import Payments from "./components/profile/account/Payments";
+import Courses from "./components/profile/account/Courses";
 
 function App(props: any) {
   const [loading, setLoading] = useState(true);
@@ -110,7 +111,7 @@ function App(props: any) {
                     }
                   ></Route>
                   <Route path='/account/settings/suscription' element={<Payments currentUser={props}/>}/>
-                  
+                  <Route path='/account/courses' element={<Courses currentUser={props}/>}/>
                   <Route path="/account/panel" element={<UserPanel />}></Route>
                   <Route
                     path="/account/panel/teacherActivities/:type"

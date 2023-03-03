@@ -45,7 +45,6 @@ function classNames(...classes: any) {
 }
 function Navbar(props: any) {
   const key = props?.newUser;
-  console.log(key)
 
   let { spinner, setSpinner }: any = useContext(SpinnerContext);
   let navigate = useNavigate();
@@ -59,7 +58,6 @@ function Navbar(props: any) {
   const setearOpenDrop = () => {
     setOpenDrop(!openDrop);
   };
-  console.log(props)
   const handleOpenUserMenu = (event: any) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -212,7 +210,7 @@ function Navbar(props: any) {
                             Profile
                           </MenuItem>
                         </Link>
-                        <Link to={'/account'}>
+                        <Link to={'/account/courses'}>
                           <MenuItem onClick={handleCloseUserMenu}>
                             Mis Cursos
                           </MenuItem>
@@ -259,9 +257,7 @@ function Navbar(props: any) {
                     : <Link to='/signin'>Iniciar Sesion</Link>}
                     {
                       props?.currentUser?.newUser == false ?
-                    <Link to={`/account`}>
-                      <p className='navbar-items'>{props?.currentUser?.credits} Moods</p>
-                    </Link>
+                      <p className='navbar-items'><img className="moods-picture" src="https://cdn-icons-png.flaticon.com/512/940/940971.png" alt="moods" /> &nbsp; {props?.currentUser?.credits} Moods</p>
                     : 
                       <button onClick={e=> Swal.fire({
                         title: '<strong>Prueba Gratuita (30 Dias)</u></strong>',
