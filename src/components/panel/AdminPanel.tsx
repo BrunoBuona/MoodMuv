@@ -247,7 +247,6 @@ class AdminPanel extends React.Component <any, any> {
 											{
 										
 													<>
-													{console.log(this.props)}
 											<input className="p-credits" type="number" defaultValue={student.credits}/>
 												{/* OJO QUE ACÁ HAY QUE TRAER LA PROP DEL USUARIO, NO LA DEL CURRENTUSER */}
 											 <img onClick={e=>{

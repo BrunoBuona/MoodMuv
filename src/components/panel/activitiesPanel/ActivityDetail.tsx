@@ -244,7 +244,11 @@ const ActivityDetail = (props:any) => {
 		</NavLink>
 		}
     <div className="btn-container-buy">
-    <button onClick={e=> {
+      {props.currentUser.courses.includes(`${props.activity._id}`)
+      ? 
+      <button className="btn-buy-activity">¡Curso Adquirido!</button>
+      : 
+     <button onClick={e=> {
     let price = props.activity.price
     let credits = props.currentUser.credits
     if (credits >= price) {
@@ -260,7 +264,8 @@ const ActivityDetail = (props:any) => {
       }).then((result) => {
         if (result.isConfirmed) {
           let newCredits = credits - price
-          axios.put(`http://localhost:4000/api/addCredits/${props.currentUser._id}`, {credits: newCredits})
+          axios.put(`http://localhost:4000/api/addCredits/${props.currentUser._id}`, {credits: newCredits});
+          axios.patch(`http://localhost:4000/api/addCourses/${props.currentUser._id}`, {courses: props.activity._id}).then(res => console.log(res));
           Swal.fire(
             'Compra exitosa',
             `Ahora tienes ${props.currentUser.credits - price} Moods.`,
@@ -271,6 +276,8 @@ const ActivityDetail = (props:any) => {
       })
   }}
     } className="btn-buy-activity">¡Comprar por {props.activity.price} Moods!</button>
+      
+      }
     </div>
 	    </div>
 
