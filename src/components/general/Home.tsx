@@ -2,12 +2,13 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Home = ({ title, newUser }: any) => {
   let key = newUser;
   let idUser: string = key?._id;
   //const [preapprovalId, setPreapprovalId] = useState("");
-
+  let navigate = useNavigate()
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const id = params.get("preapproval_id");
@@ -76,14 +77,18 @@ const Home = ({ title, newUser }: any) => {
   }, []);
 
   document.title = title;
+  
   return (
     <>
-      <div className="div-home relative min-h-[86vh] flex flex-col
-       justify-center items-center sm:flex-wrap md:flex-nowrap bg-transparent gap-8 bg-[#f3f3f3]"
+      <div className="div-home w-full  h-[90vh] flex flex-col
+       justify-center items-start sm:flex-wrap md:flex-nowrap bg-transparent gap-8 bg-[#f3f3f3] relative"
       >
-        <h1 className=" text-main text-6xl sm:w-[25rem] lg:w-[62rem] font-bold text-[#323232] drop-shadow-2xl">
-          El Home fue desactivado dado que se modificará en la versión final.
-        </h1>
+        <img className="pointer-events-none absolute w-full h-full object-cover object-bottom " src="https://user-images.githubusercontent.com/91817152/226061080-78c7f2df-3b10-4d4c-89a7-f45bbdf49e89.png" alt="bkg" />
+        <div className="relative z-10 w-[50%] h-full flex flex-col gap-3 items-start justify-center p-8">
+          <h1 className="font-extrabold text-6xl text-[#2C2C2C]">Explora y aprende con nuestra ventana de exhibición</h1>
+          <br/>
+          <button onClick={()=> navigate("/explore")} className="bg-[#563d81] hover:bg-[#523d81] hover:shadow-xl text-xl w-fit text-white font-bold py-5 px-4 rounded cursor-pointer call">Ver nuestro cursos</button>
+        </div>
       </div>
     </>
   );

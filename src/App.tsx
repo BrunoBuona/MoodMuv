@@ -47,16 +47,26 @@ function App(props: any) {
   const [spinner, setSpinner] = useState(true);
 
   useEffect(() => {
+    const handleContextMenu = (event: { preventDefault: () => void; }) => {
+      event.preventDefault();
+    };
+  
+    document.addEventListener("contextmenu", handleContextMenu);
+  
     if (props.currentUser == "login" || !props.currentUser) {
       if (localStorage.getItem("token") !== null) {
         const token = localStorage.getItem("token");
         props.verifyToken(token);
       }
     }
-
+  
     setTimeout(() => {
       setLoading(false);
     }, 2000);
+  
+    return () => {
+      document.removeEventListener("contextmenu", handleContextMenu);
+    };
   }, [props.currentUser]);
 
   return (

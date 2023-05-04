@@ -43,7 +43,7 @@ const AboutContainer = () => {
 
         <CarouselTeam/>
         
-        <div className='flex flex-col justify-center items-center my-28'>
+        <div id='contact' className='flex flex-col justify-center items-center my-28 contact'>
             <h1 className='h2 text-center text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-t from-[#563D81] to-[#6E5E8B]'>Ponte en contacto</h1>
             <p className='p text-[#666] my-4'>Nos encantaría saber de usted. Por favor, llene este formulario.</p>
             {/* FORM */}

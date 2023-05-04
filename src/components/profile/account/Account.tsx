@@ -152,8 +152,8 @@ class Account extends React.Component <any, any>{
 				</div>
 {/* ICONS */}
 			    </div>
-				{this.props.currentUser?.type === "Teacher" && <p className="text-center shadow-md bg-gradient-to-t from-[#fdc41d] to-[#fbb232] p-3 py-1 rounded-3xl text-white font-bold mb-2">Profesor</p>}
-				{this.props.currentUser?.type === "User" && <p className="text-center shadow-md bg-gradient-to-t from-cyan-500 to-blue-500  p-3 py-1 rounded-3xl text-white font-bold mb-2">Alumno</p>}
+				{this.props.currentUser?.type === "Teacher" && <p className="text-center shadow-md bg-gradient-to-t from-[#fdc41d] to-[#fbb232] p-3 py-1 rounded-3xl text-white font-bold mb-2">Instructor</p>}
+				{this.props.currentUser?.type === "User" && <p className="text-center shadow-md bg-gradient-to-t from-cyan-500 to-blue-500  p-3 py-1 rounded-3xl text-white font-bold mb-2">Estudiante</p>}
 			    <h2 className="font-bold text-4xl text-[#222]">{this.props.currentUser?.name}</h2>
 			    {/* Ubicación */}
 				{

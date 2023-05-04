@@ -1,4 +1,3 @@
-
 //UTILITIES
 import React, { useState } from "react";
 import { RootState } from "../../main";
@@ -190,7 +189,7 @@ class AdminPanel extends React.Component <any, any> {
 					<div className='flex items-center justify-center flex-col space-y-5 mt-5 mb-12'>
 						<h2 className='font-bold text-4xl text-[#222] border-b-2'>Profesores</h2>
 						{this.props.teachers && this.props.teachers.map((teacher:teacherDTO, index:number) => (
-							<div className='flex items-center justify-center space-x-3' key={teacher._id}>
+							<div className='flex items-center justify-center space-x-3' key={teacher?._id}>
 								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" className="bi bi-trash3 hover:text-[#5c4683] transition duration-300 ease-in cursor-pointer" viewBox="0 0 16 16" onClick={() => this.deleteTeacher(teacher._id, this.state.activitiesList[index])}>
 								  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
 								</svg>
@@ -201,20 +200,20 @@ class AdminPanel extends React.Component <any, any> {
 										aria-controls="panel1a-content"
 										id="panel1a-header"
 										>
-										<Link to={'/explore/profile/' + teacher._id}>
+										<Link to={'/explore/profile/' + teacher?._id}>
 											<Typography className='hover:text-[#5c4683] transition duration-300 ease-in cursor-pointer' onClick={this.props.resetStoreTeachers}>{teacher.name}</Typography>
 										</Link>
 									</AccordionSummary>
 								
 									{this.state.activitiesList[index] && this.state.activitiesList[index].map((activity:activityDTO) => (
-										<div className='flex justify-between items-center mb-3 p-2' key={activity._id}>
+										<div className='flex justify-between items-center mb-3 p-2' key={activity?._id}>
 											<AccordionDetails className='accordion'>
-												<Link to={'/explore/activity/' + activity._id}>
+												<Link to={'/explore/activity/' + activity?._id}>
 													<Typography className='p-0 hover:text-[#5c4683] transition duration-300 ease-in cursor-pointer text-center' onClick={this.props.resetStoreActivities}>{activity.name}</Typography>
 												</Link>
 											</AccordionDetails>
 
-											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3 hover:text-[#5c4683] transition duration-300 ease-in cursor-pointer" viewBox="0 0 16 16" onClick={() => this.deleteActivity(activity._id)}>
+											<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-trash3 hover:text-[#5c4683] transition duration-300 ease-in cursor-pointer" viewBox="0 0 16 16" onClick={() => this.deleteActivity(activity?._id)}>
 											  <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5ZM11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H2.506a.58.58 0 0 0-.01 0H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1h-.995a.59.59 0 0 0-.01 0H11Zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5h9.916Zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47ZM8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5Z"/>
 											</svg>
 										</div>
@@ -247,10 +246,11 @@ class AdminPanel extends React.Component <any, any> {
 											{
 										
 													<>
-											<input className="p-credits" type="number" defaultValue={student.credits}/>
-												{/* OJO QUE ACÁ HAY QUE TRAER LA PROP DEL USUARIO, NO LA DEL CURRENTUSER */}
+											<input className="p-credits" type="number" id={student?.name} defaultValue={student.credits}/>
 											 <img onClick={e=>{
-												let input = (document.querySelector('.p-credits')).value
+												let $input = document.getElementById(student?.name) as HTMLInputElement;
+												// check prop
+												let value_input = $input?.value
 												Swal.fire({
 													title: '¿Seguro que quieres modificar los creditos del usuario?',
 													text: "¡Esta acción no se puede deshacer!",
@@ -262,7 +262,7 @@ class AdminPanel extends React.Component <any, any> {
 													cancelButtonText: 'Cancelar'
 												  }).then((result) => {
 													if (result.isConfirmed) {
-													  axios.put(`http://localhost:4000/api/addCredits/${student._id}`, {credits: input})
+													  axios.put(`http://localhost:4000/api/addCredits/${student._id}`, {credits: value_input})
 													  Swal.fire(
 														'Operación completada exitosamente.',
 														'Los creditos del usuario han sido modificados.',

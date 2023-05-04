@@ -1,13 +1,13 @@
 import React from "react";
-import HowToImage from "../../../assets/vectores/Recurso 1.png";
+import HowToVideo from "../../../assets/Estudiantes_A_1.mp4";
+import HowToVideoProfe from "../../../assets/Instructores_A.mp4";
 import Section from './Section'
 import Faq from './Faq'
 import Vector from '../../../assets/Vector.png'
 //CSS
 import '../../../styles/mediaqueriesHowTo.css'
 
-const HowTo = () => {
-
+const HowTo = (props:any) => {
   return (
     
     <div className="min-h-screen w-full break-all flex flex-col items-center gap-28">
@@ -19,21 +19,24 @@ const HowTo = () => {
               MOODMUV?
             </span>
           </h2>
-          <p className="text-gray-500 ">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Laboriosam
-            qui totam doloribus. Esse unde, id error magni magnam totam eaque!
-          </p>
         </div>
-        <img
-          className="h-76 object-contain"
-          src={HowToImage}
-          alt="howToImage"
+        {
+        props?.currentUser?.type == 'Teacher' ?
+        <video controls  loop
+          className="h-13  w-1/3 outline-4"
+          src={HowToVideoProfe}
         />
+        :
+        <video controls loop
+        className="h-13  w-1/3 outline-4"
+        src={HowToVideo}
+        />
+        }
       </div>
       <Section/>
-      <h2 className="text-howto text-[#323232] px-6 relative z-20 text-6xl w-80 font-bold flex flex-col break-normal">Preguntas <span className="text-4xl font-light text-[#323232]">Frecuentes</span></h2>
+      {/* <h2 className="text-howto text-[#323232] px-6 relative z-20 text-6xl w-80 font-bold flex flex-col break-normal">Preguntas <span className="text-4xl font-light text-[#323232]">Frecuentes</span></h2> */}
       <div className="w-[90%] h-full pb-28 ">
-        <Faq/>
+        {/* <Faq/> */}
       </div>
     </div>
   );

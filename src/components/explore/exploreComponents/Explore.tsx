@@ -15,7 +15,7 @@ import { RootState } from "../../../main";
 
 //INTERFACES
 import activityDTO from "../../../types/activityDTO";
-import imageExplore from '../../../assets/index2.jpg'
+import imageExplore from './explorer.png'
 
 class Explore extends React.Component<any, any> {
   constructor(props: any) {

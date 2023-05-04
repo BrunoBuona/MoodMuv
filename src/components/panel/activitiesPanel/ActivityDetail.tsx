@@ -244,7 +244,7 @@ const ActivityDetail = (props:any) => {
 		</NavLink>
 		}
     <div className="btn-container-buy">
-      {props.currentUser.courses.includes(`${props.activity._id}`)
+      {props?.currentUser?.courses?.includes(`${props.activity._id}`)
       ? 
       <button className="btn-buy-activity">¡Curso Adquirido!</button>
       : 

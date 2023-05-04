@@ -30,7 +30,9 @@ const ProfileSettings = (props: any) => {
   const [mediaFacebook, setFacebook] = useState(props.currentUser?.media[0])
   const [mediaInstagram, setInstagram] = useState(props.currentUser?.media[1])
   const [mediaTiktok, setTiktok] = useState(props.currentUser?.media[2])
-
+  const [bank, setBank ] = useState(props.currentUser?.bank)
+  const [cbu, setCbu ] = useState(props.currentUser?.cbu)
+  const [alias, setAlias ] = useState(props.currentUser?.alias)
   //PROFILE AVATAR
   let [fileValue, setFile] = useState(undefined);
 
@@ -58,7 +60,10 @@ const ProfileSettings = (props: any) => {
       genre: genreValue,
       desc: descValue,
       disciples: discValue,
-      media:[mediaFacebook, mediaInstagram, mediaTiktok]
+      media:[mediaFacebook, mediaInstagram, mediaTiktok],
+      bank: bank,
+      cbu: cbu,
+      alias: alias
     };
 
     if (props.currentUser.type == "Teacher") {
@@ -111,24 +116,15 @@ const ProfileSettings = (props: any) => {
               <p className="w-full p-2 text-xs text-[#222] border-l-2 border-[#222] py-4 font-bold px-8">
                 Editar perfil
               </p>
+              {
+                 props?.currentUser?.type === "Teacher" ? null :
               <Link
                 to={"/account/settings/suscription"}
                 className="w-full p-2 text-xs text-[#222] py-4 px-8"
               >
                 Mi Suscripcion
               </Link>
-              <Link
-                to={"/account/settings/password"}
-                className="w-full p-2 text-xs text-[#222] py-4 px-8"
-              >
-                Cambiar contraseña
-              </Link>
-              <Link
-                to={"/account/settings/desactive"}
-                className="w-full p-2 text-xs text-[#222] py-4 px-8"
-              >
-                Eliminar cuenta
-              </Link>
+              }
               <p
                 onClick={() => {
                   props.logOut();
@@ -285,6 +281,64 @@ const ProfileSettings = (props: any) => {
                   <option value="Mujer">Prefiero no decir</option>
                 </select>
               </fieldset>
+              { props.currentUser.type == 'Teacher' ?
+              <>
+              <fieldset className="fieldset flex gap-4 w-full flex-wrap">
+                <aside className="aside flex justify-end px-6 w-44 min-h-4">
+                  <label
+                    className="label font-bold  text-right self-center"
+                    htmlFor=""
+                  >
+                    N° Cuenta Bancaria
+                  </label>
+                </aside>
+                <input
+                  onChange={(e) => setCbu(e.target.value)}
+                  className="num-input border grow rounded px-2 self-center border-[#d3d3d3] hover:border-[#b3b3b3]"
+                  type="text"
+                  name=""
+                  id=""
+                  defaultValue={props.currentUser?.cbu}
+                />
+              </fieldset>
+              <fieldset className="fieldset flex gap-4 w-full flex-wrap">
+                <aside className="aside flex justify-end px-6 w-44 min-h-4">
+                  <label
+                    className="label font-bold  text-right self-center"
+                    htmlFor=""
+                  >
+                    Alias
+                  </label>
+                </aside>
+                <input
+                  onChange={(e) => setAlias(e.target.value)}
+                  className="num-input border grow rounded px-2 self-center border-[#d3d3d3] hover:border-[#b3b3b3]"
+                  type="text"
+                  name=""
+                  id=""
+                  defaultValue={props?.currentUser?.alias}
+                />
+              </fieldset>
+              <fieldset className="fieldset flex gap-4 w-full flex-wrap">
+                <aside className="aside flex justify-end px-6 w-44 min-h-4">
+                  <label
+                    className="label font-bold  text-right self-center"
+                    htmlFor=""
+                  >
+                    Banco
+                  </label>
+                </aside>
+                <input
+                  onChange={(e) => setBank(e.target.value)}
+                  className="num-input border grow rounded px-2 self-center border-[#d3d3d3] hover:border-[#b3b3b3]"
+                  type="text"
+                  name=""
+                  id=""
+                  defaultValue={props?.currentUser?.bank}
+                />
+              </fieldset>
+              </>
+              : null}
 
 {/* Facebook */}
 

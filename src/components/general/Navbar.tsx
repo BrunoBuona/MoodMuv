@@ -11,6 +11,7 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Logo from "../../assets/logoDegrade.png";
 import './Navbar.css'
+import Moods from '../../assets/moods.png'
 //UTILITIES
 import { Link, useNavigate } from "react-router-dom";
 import { connect } from "react-redux";
@@ -109,7 +110,7 @@ function Navbar(props: any) {
               frequency: 1,
               frequency_type: "months"
             },
-            currency_id: "ARS",
+            currency_id: "CLP",
         }),
         (this.back_url = "https://www.google.com/"),
         (this.payer_email = email);
@@ -118,8 +119,8 @@ function Navbar(props: any) {
 
   const planHappy = new PaymentDataSub(
     "Plan Happy",
-    "test_user_1304323011@testuser.com",
-    400
+    "moodmuv@gmail.com",
+    3500
   );
 
   const handleClick = async (
@@ -141,7 +142,7 @@ function Navbar(props: any) {
   };
 
   return (
-    <Disclosure as="nav" className=" relative z-10">
+    <Disclosure as="nav" className="h-[18vh] relative z-10">
       {({ open }) => (
         <>
           <div className="mx-auto h-24 max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -162,15 +163,11 @@ function Navbar(props: any) {
                 <div className="flex justify-between flex-shrink-0 items-center h-full">
                   <Link to={"/home"}>
                     <img
-                      className="hidden sm:block h-full p-2 w-20 object-contain"
+                      className="hidden sm:block h-full w-20 object-contain"
                       src={Logo}
                       alt="Your Company"
                     />
-                    <img
-                      className="self-end block sm:hidden h-full p-2 w-20 object-contain"
-                      src={Logo}
-                      alt="Your Company"
-                    />
+                    
                   </Link>
                 </div>
                 <div className="hidden md:block sm:ml-6 w-full">
@@ -178,9 +175,13 @@ function Navbar(props: any) {
                     <Link to={"/explore"}>
                       <p className='navbar-items'>Explorar</p>
                     </Link>
+                    {
+                      props?.currentUser?.type === "Teacher" ? null
+                      :
                     <Link to={"/plans"}>
                       <p className='navbar-items'>Planes</p>
                     </Link>
+                    }
                     {/* Esto de acá abajo es el desplegable */}
                     {props.currentUser?._id ? 
                     <Box sx={{ flexGrow: 0 }}>
@@ -210,17 +211,22 @@ function Navbar(props: any) {
                             Profile
                           </MenuItem>
                         </Link>
+                        {
+                          props?.currentUser?.type === "Teacher" ? null :
                         <Link to={'/account/courses'}>
                           <MenuItem onClick={handleCloseUserMenu}>
-                            Mis Cursos
+                            Courses
                           </MenuItem>
                         </Link>
-
-                        <Link to={'/account/panel'}>
+                        }
+                        {
+                         props?.currentUser?.type == "Teacher" ?  <Link to={'/account/panel'}>
                           <MenuItem onClick={handleCloseUserMenu}>
                             Panel
                           </MenuItem>
-                        </Link>
+                        </Link> : null
+                        }
+                      
 
                         <Link to={'/account/settings'}>
                           <MenuItem onClick={handleCloseUserMenu}>
@@ -255,9 +261,9 @@ function Navbar(props: any) {
                       </Menuu>
                     </Box>
                     : <Link to='/signin'>Iniciar Sesion</Link>}
-                    {
+                   { props?.currentUser?.type == "Teacher" ? null : 
                       props?.currentUser?.newUser == false ?
-                      <p className='navbar-items'><img className="moods-picture" src="https://cdn-icons-png.flaticon.com/512/940/940971.png" alt="moods" /> &nbsp; {props?.currentUser?.credits} Moods</p>
+                      <p className='navbar-items'><img className="moods-picture" src={Moods} alt="moods" /> &nbsp; {props?.currentUser?.credits} Moods</p>
                     : 
                       <button onClick={e=> Swal.fire({
                         title: '<strong>Prueba Gratuita (30 Dias)</u></strong>',
@@ -284,7 +290,7 @@ function Navbar(props: any) {
                         }
                       })
                       } className='freeTrial'>FREE TRIAL</button>
-                    }
+                    } 
                   </div>
                 </div>
               </div>

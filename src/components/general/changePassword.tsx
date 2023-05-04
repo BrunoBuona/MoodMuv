@@ -10,15 +10,15 @@ import { RootState } from "../../main";
 
 const ProfileSettings = (props: any) => {
   const [nameValue, setName] = useState(
-    props.student?.name || props.teacher?.name
+    props?.student?.name || props?.teacher?.name
   );
-  const [ubiValue, setUbi] = useState(props.student?.ubi || props.teacher?.ubi);
-  const [numValue, setNum] = useState(props.student?.num || props.teacher?.num);
+  const [ubiValue, setUbi] = useState(props?.student?.ubi || props?.teacher?.ubi);
+  const [numValue, setNum] = useState(props?.student?.num || props?.teacher?.num);
   const [genreValue, setGenre] = useState(
-    props.student?.genre || props.teacher?.genre
+    props?.student?.genre || props?.teacher?.genre
   );
   const [descValue, setDesc] = useState(
-    props.student?.desc || props.teacher?.desc
+    props?.student?.desc || props?.teacher?.desc
   );
 
   const [avatarFile, setAvatarFile] = useState(undefined);
@@ -33,7 +33,7 @@ const ProfileSettings = (props: any) => {
 
   let saveStudent = () => {
     let userData = {
-      id: props.id,
+      id: props?.id,
       name: nameValue,
       ubi: ubiValue,
       num: numValue,
@@ -50,7 +50,7 @@ const ProfileSettings = (props: any) => {
     }
   };
 
-  let user = props.student || props.teacher;
+  let user = props?.student || props?.teacher;
   let navigate = useNavigate()
   const disciplines = ["Acroyoga", "Yoga"]
   return (
@@ -149,17 +149,17 @@ const ProfileSettings = (props: any) => {
 };
 
 let mapDispatch = {
-  modifyStudent: studentActions.modifyStudent,
-  modifyTeacher: teacherActions.modifyTeacher,
-  fetchStudent: studentActions.fetchStudent,
-  fetchTeacher: teacherActions.fetchTeacher,
-  logOut: userActions.logOut,
+  modifyStudent: studentActions?.modifyStudent,
+  modifyTeacher: teacherActions?.modifyTeacher,
+  fetchStudent: studentActions?.fetchStudent,
+  fetchTeacher: teacherActions?.fetchTeacher,
+  logOut: userActions?.logOut,
 };
 
 let mapState = (state: RootState) => {
   return {
-    student: state.studentReducer.student,
-    teacher: state.teacherReducer.teacher,
+    student: state?.studentReducer?.student,
+    teacher: state?.teacherReducer?.teacher,
   };
 };
 

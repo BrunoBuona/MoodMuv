@@ -1,18 +1,7 @@
 
 // export default function Payments(props: any) {
 //     return (
-//         <div id="div-credits">
-//             <div className="plan-div">
-//                 {
-//                     props?.currentUser?.plan === "" ? <p>Sin plan activo</p>
-//                         : props?.currentUser?.plan === "free" ? <p>Plan "Trial Happy"</p>
-//                             : props?.currentUser?.plan === "happy" ? <p>Plan "Happy"</p>
-//                                 : <p>Plan: FULL</p>
-//                 } y
-//                 <p>{props?.currentUser?.credits} Moods</p>
-//             </div>
-//             <p>Le quedan {props?.currentUser.diference} dias a tu plan.</p>
-//         </div>
+       
 //     )
 // }
 //BASICS
@@ -21,6 +10,7 @@ import React, { useContext, useEffect, useState, useRef } from "react";
 //UTILITIES
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import './Payment.css'
 
 export default function Payments(props: any){
   return (
@@ -41,7 +31,7 @@ export default function Payments(props: any){
               >
                 Mi Suscripcion
               </Link>
-              <Link
+              {/* <Link
                 to={"/account/settings/password"}
                 className="w-full p-2 text-xs text-[#222] py-4 px-8"
               >
@@ -52,7 +42,7 @@ export default function Payments(props: any){
                 className="w-full p-2 text-xs text-[#222] py-4 px-8"
               >
                 Eliminar cuenta
-              </Link>
+              </Link> */}
               <p
                 onClick={() => {
                   props.logOut();
@@ -63,6 +53,20 @@ export default function Payments(props: any){
                 Cerrar sesión
               </p>
             </div>
+              <div className="plan-div">
+                {
+                    props?.currentUser?.currentUser?.plan === "" ? <p className="plan">Sin plan activo</p>
+                        : props?.currentUser?.currentUser?.plan === "free" ? <p className="plan">Plan "Trial Happy"</p>
+                            : props?.currentUser?.currentUser?.plan === "happy" ? <p className="plan">Plan "Happy"</p>
+                                : <p className="plan">Plan: FULL</p>
+                } 
+                <p className="plan-credits-text">{props?.currentUser?.currentUser?.credits} Moods</p>
+            {/* <p>Le quedan {props?.currentUser.currentUser.diference}0 dias a tu plan.</p> */}
+            <div className="footer-cancel">
+            <p className="plan-credits-text h2">Metodo de Pago: <p className="h3">MercadoPago</p></p>
+            <a className="cancel-suscription-btn" href="#" >Cancelar suscripción</a>
+            </div>
+              </div>
            </div>
            </div>
           

@@ -33,18 +33,10 @@ const SignUp = (props:any) => {
 	}
 
 	return (
-		<div className="h-screen md:flex ">
+		<div className="h-screen md:flex my-6">
 		<div
 		className="relative overflow-hidden md:flex w-1/2 bg-[url('https://user-images.githubusercontent.com/65744660/192929415-59677042-04d1-4b84-a06c-bd2723fe5cc9.jpg')] bg-cover bg-center i justify-around items-center hidden">
 		<div>
-		  <h1 className="text-white font-semibold text-5xl font-sans">Registrate en </h1>
-		  <p className="text-white mt-1 text-3xl font-semibold">MoodMuv</p>
-		  <p className="text-white mt-1 w-52">Si ya tienes una cuenta puedes loguearte aqui</p>
-
-		  <Link to={'/signIn'}>
-			 <span className="font-bold text-[#5FAABF] cursor-pointer">Iniciar sesión</span>
-		  </Link>
-
 		</div>
 		<div className="absolute -bottom-32 -left-40 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
 		<div className="absolute -bottom-40 -left-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
@@ -65,8 +57,8 @@ const SignUp = (props:any) => {
 			 </svg>
 			  <select className="w-40 pl-2 outline-none border-none bg-[#F0EFFF]" onChange={(event) => setRolValue(event.target.options[event.target.selectedIndex].value)}>
 				  <option className='pl-2 outline-none border-none bg-[#F0EFFF] text-[#A7A3FF]' value='Elige tu rol' hidden>Elige tu rol</option>
-				  <option className='pl-2 outline-none border-none bg-[#F0EFFF] text-[#A7A3FF]' value='Profesor'>Profesor</option>
-				  <option className='pl-2 outline-none border-none bg-[#F0EFFF] text-[#A7A3FF]' value='Alumno'>Alumno</option>
+				  <option className='pl-2 outline-none border-none bg-[#F0EFFF] text-[#A7A3FF]' value='Profesor'>Instructor</option>
+				  <option className='pl-2 outline-none border-none bg-[#F0EFFF] text-[#A7A3FF]' value='Alumno'>Estudiante</option>
 			  </select>
 
 		  </div>

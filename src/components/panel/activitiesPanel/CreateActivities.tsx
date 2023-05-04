@@ -221,7 +221,23 @@ const CreateActivity = (props:any) => {
 			onChange={(event) => setDur(event.target.value)}
 		      />
 		    </div>
-
+			<div className="col-span-6 sm:col-span-3">
+		      <label
+			htmlFor="first-name"
+			className=" block text-sm font-medium text-gray-700"
+		      >
+			Precio (Moods)
+		      </label>
+		      <input
+			type="number"
+			name="first-name"
+			id="first-name"
+			autoComplete="given-name"
+			className="px-2 py-1 border mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+			placeholder="Formato HS"
+			onChange={(event) => setPrice(event.target.value)}
+		      />
+		    </div>
 		    <div className="col-span-6 sm:col-span-3">
 		      <label
 			htmlFor="last-name"

@@ -8,3 +8,9 @@
   padding: 0;
   box-sizing: border-box;
 }
+.call{
+  cursor: pointer;
+}
+.call:hover{
+  cursor: pointer;
+}

@@ -11,7 +11,8 @@ const SignIn = (props:any) => {
   let [passValue, setPassValue] = useState('')
   let navigate = useNavigate()
 
-  let signIn = () => {
+  let signIn = (event:any) => {
+    event.preventDefault()
 	  const userData = {
 		  email:emailValue,
 		  pass:passValue,
@@ -28,18 +29,9 @@ const SignIn = (props:any) => {
   }
 
   return (
-    <div className="h-screen md:flex ">
+    <div className="h-screen md:flex my-6 ">
       <div
         className="relative overflow-hidden md:flex w-1/2 bg-[url('https://user-images.githubusercontent.com/65744660/192929412-7e9bb4db-cc8a-46d4-ad26-f13b03ae66f9.png')] bg-cover bg-center i justify-around items-center hidden">
-        <div>
-          <h1 className="text-white font-semibold text-5xl font-sans">Iniciar sesión en </h1>
-          <p className="text-white mt-1 text-3xl font-semibold">MoodMuv</p>
-          <p className="text-white mt-1 w-52">Si todavía no tienes una cuenta puedes hacerla aqui</p>
-          <Link to={'/signUp'}>
-	  <span className="cursor-pointer text-[#0079FF] underline">Registrate ya</span>
-
-	  </Link>
-        </div>
         <div className="absolute -bottom-32 -left-40 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
         <div className="absolute -bottom-40 -left-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
         <div className="absolute -top-40 -right-0 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
@@ -67,7 +59,7 @@ const SignIn = (props:any) => {
                   </svg>
 			<input className="pl-2 outline-none border-none bg-[#F0EFFF] placeholder-[#A7A3FF]" type="password" name="" id="" placeholder="Password" onChange={(event) => setPassValue(event.target.value)}/>
           </div>
-		<button type="button" className="block w-full bg-indigo-600 mt-4 py-2 rounded bg-[#4D47C3] text-white font-semibold mb-2" onClick={() => signIn()}>Iniciar Sesión</button>
+		<button type="submit" className="block w-full bg-indigo-600 mt-4 py-2 rounded bg-[#4D47C3] text-white font-semibold mb-2" onClick={signIn}>Iniciar Sesión</button>
 		<div className='flex items-center justift-center flex-col'>
 		  <Link to={'/forgotPass'}>
 			  <span className="text-sm ml-2 hover:text-blue-500 cursor-pointer text-[#0079FF] underline">Te olvidaste la contraseña?</span>

@@ -15,9 +15,8 @@ const activityActions = {
 				method:'get',
 				url:'http://localhost:4000/api/activity/' + id,
 			})
-
+1
 			dispatch({type:'fetchActivity', payload:ans.data.data})
-
 			return ans.data.data
 	        }
 
